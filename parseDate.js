@@ -8,18 +8,21 @@ const isISO8061 = function(dateString) {
     return rex.test(dateString);
   };
   
-  const throwError = function(){
-    throw new Error()
+  const format = function (dateString){
+    const _dateString = isISO8061(dateString)
+      ? dateString
+      : isNumeral(dateString)
+      ? parseInt(dateString)
+      : new Error();
+    
+    return _dateString
   }
   
   module.exports = function parseDate(dateString) {
     if(dateString == null)
       return new Date()
-    const _dateString = isISO8061(dateString)
-      ? dateString
-      : isNumeral(dateString)
-      ? parseInt(dateString)
-      : throwError();
-    return new Date(_dateString);
+    const formatted = format(dateString)
+    
+    return formatted instanceof Error? formatted : new Date(formatted);
   };
   
