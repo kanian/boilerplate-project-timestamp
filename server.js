@@ -30,7 +30,7 @@ app.get("/api/timestamp/:date*?", function(req,res){
     res.json({unix: date.getTime(), utc: date.toUTCString()})
   } catch(err){
     //res.json(err.message)
-    res.json({"unix": null, "utc" : "Invalid Date" })
+    res.json({unix: null, utc : "Invalid Date" })
   }
 })
 
