@@ -1,6 +1,6 @@
 // server.js
 // where your node app starts
-
+const parseDate = require('./parseDate')
 // init project
 var express = require('express');
 var app = express();
@@ -24,6 +24,15 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/timestamp/:date*?", function(req,res){
+  try{
+    const date = parseDate(req.params.date)
+    res.json({unix: date.getTime(), utc: date.toUTCString()})
+  } catch(err){
+    //res.json(err.message)
+    res.json({"unix": null, "utc" : "Invalid Date" })
+  }
+})
 
 
 // listen for requests :)
