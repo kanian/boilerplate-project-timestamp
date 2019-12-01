@@ -27,11 +27,13 @@ app.get("/api/timestamp/:date*?", function(req, res) {
   try {
     const date = parseDate(req.params.date);
     if (date instanceof Error) {
-      res.json({ unix: null, utc: "Invalid Date" });
+      //res.json({ unix: null, utc: "Invalid Date" });
+      res.json({"error" : "Invalid Date" })
     }
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   } catch (err) {
-    res.json({ unix: null, utc: "Invalid Date" });
+    res.json({"error" : "Invalid Date" })
+    //res.json({ unix: null, utc: "Invalid Date" });
   }
 });
 
